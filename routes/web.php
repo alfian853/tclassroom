@@ -12,42 +12,17 @@ use Illuminate\Support\Facades\Input;
 |
 */
 
-// Route::get('/', function () {
-//     return view('calculator');
-// });
-
-// Route::post('/hitung',function(){
-//     $num1 = input::get('num1');
-//     $opr = input::get('opr');
-//     $num2 = input::get('num2');
-
-//     if($opr == "+"){
-//       $hasil = $num1 + $num2;
-//       echo 'Hasil: ' . $hasil;
-//     }
-
-//     if($opr == "-"){
-//       $hasil = $num1 - $num2;
-//       echo 'Hasil: ' . $hasil;
-//     }
-
-//     if($opr == "*"){
-//       $hasil = $num1 * $num2;
-//       echo 'Hasil: ' . $hasil;
-//     }
-
-//     if($opr == "/"){
-//       $hasil = $num1 /$num2;
-//       echo 'Hasil: ' . $hasil;
-//     }
-
-
-
-// });
 
 Route::get('/', function () {
   return view('home');
 });
+
+Route::get('/registration','Auth\RegisterController@getRegister')->name('get.register');
+Route::get('/registration/confirmation','Auth\RegisterController@confirmRegistration')
+    ->name('get.register.confirmation');
+Route::post('/registration','Auth\RegisterController@requestRegister')->name('post.register');
+
+
 Route::resource('mhs','MhsController');
 Route::resource('dosen','DosenController');
 Route::resource('matkul','MatkulController');
