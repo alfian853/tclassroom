@@ -14,16 +14,19 @@ use Illuminate\Support\Facades\Input;
 
 
 Route::get('/', function () {
-  return view('home');
+  return view('layouts.index');
 });
+
 
 Route::get('/registration','Auth\RegisterController@getRegister')->name('get.register');
 Route::get('/registration/confirmation','Auth\RegisterController@confirmRegistration')
     ->name('get.register.confirmation');
 Route::post('/registration','Auth\RegisterController@requestRegister')->name('post.register');
 
+// Route::resource('/student', 'StudentController');
 
-Route::resource('mhs','MhsController');
-Route::resource('dosen','DosenController');
-Route::resource('matkul','MatkulController');
+// Route::resource('mhs','MhsController');
+// Route::resource('dosen','DosenController');
+// Route::resource('matkul','MatkulController');
+
 
