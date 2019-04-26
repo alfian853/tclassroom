@@ -13,13 +13,16 @@ class CreateTeacher extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('teachers');
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::dropIfExists('users');
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email',32);
-            $table->string('nip',16);
-            $table->string('name',64);
-            $table->string('password',72);
+            $table->string('idUser',25);
+            $table->string('name',255);
+            $table->string('email',255);
+            $table->timestamp('email_verified_at');
+            $table->string('password',255);
+            $table->string('remember_token',100);
+            $table->timestamps();
         });
     }
 
@@ -30,6 +33,6 @@ class CreateTeacher extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists('users');
     }
 }

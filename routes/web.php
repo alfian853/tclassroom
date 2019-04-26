@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
   return view('layouts.index');
-});
+})->name('home');
 
 
 Route::get('/registration','Auth\RegisterController@getRegister')->name('get.register');

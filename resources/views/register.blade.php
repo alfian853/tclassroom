@@ -74,23 +74,11 @@
 				<input type="email" name="email" placeholder="Email" value="{{old('email')}}" class="form-control">
 			</div>
 		</div>
-		<div class="form-group">
-      		<label for="usertype" class="container control-label">User Type
-        		{!! $errors->first('user_type','<span class="help-block text-danger">*:message</span>') !!}
-      		</label>
-			<div class="col-sm-12">
-				<select name="user_type">
-					<option value="student" selected>Student</option>
-					<option value="teacher">Teacher</option>
-				</select>
-			</div>
-		</div>
 		<div class="form-group" id="dynamic-field">
-			<label for="nrp" class="container control-label">NRP</label>
+			<label for="id-user" class="container control-label">ID Number (NRP/NIP)</label>
 			<div class="col-sm-12">
-			<input type="text" name="nrp" placeholder="NRP" class="form-control">
+			<input type="text" name="id-user" placeholder="ID Number" class="form-control">
 			</div>
-
 		</div>
 		<hr>
 		<div class="form-group">
