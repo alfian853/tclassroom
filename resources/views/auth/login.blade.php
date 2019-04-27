@@ -2,61 +2,52 @@
 
 @section('title', 'Login')
 
+@section('add-script')
+<link rel="stylesheet" type="text/css" href="{{asset('login_page/css/icon-font.min.css')}} ">
+<link rel="stylesheet" type="text/css" href="{{asset('login_page/css/animate.css')}} ">
+<link rel="stylesheet" type="text/css" href="{{asset('login_page/css/animsition.min.css')}} ">
+<link rel="stylesheet" type="text/css" href="{{asset('login_page/css/util.css')}} ">
+<link rel="stylesheet" type="text/css" href="{{asset('login_page/css/main.css')}} ">
+@endsection
+
 @section('content')
-<div class="container">
-        <div class="col-md-12 col-md-offset-2">
-            <div class="panel panel-default">
 
-                <div class="panel-body" style="margin-top:75px;">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}" role="form">
-                        {{ csrf_field() }}
-			<h2>Login</h2><hr>
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-12">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+<div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-t-30 p-b-50">
+                        <span class="login100-form-title p-b-41">
+                            Tclassroom Login
+                        </span>
+                    <form class="login100-form validate-form p-b-33 p-t-5" method="POST" action="{{url('login')}}">
+                        @csrf
+                        @if (\Session::has('message'))
+                        <div class="alert alert-danger text-center" role="alert">
+                            <h6 style="font-size: 12px">{!! \Session::get('message') !!}</h6>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-12">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        @endif
+                        @if (\Session::has('success'))
+                        <div class="alert alert-success text-center" role="alert" >
+                            <h6 style="font-size: 12px">{!! \Session::get('success') !!}</h6>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
+                        @endif
+                        <div class="wrap-input100 validate-input" data-validate = "Valid email is required">
+                            <input id="email" class="input100" type="email" name="email" placeholder="Email" value="{{old('email')}}" required>
+                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-                            </div>
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            <input class="input100" type="password" name="password" placeholder="Password" required>
+                            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                         </div>
+    
+                        <div class="container-login100-form-btn m-t-32">
+                            <button class="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+    
                     </form>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    
 @endsection
