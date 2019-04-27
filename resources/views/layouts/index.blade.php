@@ -77,7 +77,7 @@
                                 <div class="col-md-8 col-md-offset-2 text-center slider-text">
                                     <div class="slider-text-inner">
                                         <h1>The Roots of Education are Bitter, But the Fruit is Sweet</h1>
-                                        <p><a class="btn btn-primary btn-lg" href="">Start Learning Now!</a></p>
+                                        <p><a class="btn btn-primary btn-lg" href="{{url('/courses')}}">Start Learning Now!</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                 <div class="col-md-8 col-md-offset-2 text-center slider-text">
                                     <div class="slider-text-inner">
                                         <h1>The Great Aim of Education is not Knowledge, But Action</h1>
-                                        <p><a class="btn btn-primary btn-lg btn-learn" href="">Start Learning Now!</a>
+                                        <p><a class="btn btn-primary btn-lg btn-learn" href="{{url('/courses')}}">Start Learning Now!</a>
                                         </p>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                 <div class="col-md-8 col-md-offset-2 text-center slider-text">
                                     <div class="slider-text-inner">
                                         <h1>We Help You to Learn New Things</h1>
-                                        <p><a class="btn btn-primary btn-lg btn-learn" href="">Start Learning Now!</a>
+                                        <p><a class="btn btn-primary btn-lg btn-learn" href="{{url('/courses')}}">Start Learning Now!</a>
                                         </p>
                                     </div>
                                 </div>

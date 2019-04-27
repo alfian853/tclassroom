@@ -8,7 +8,7 @@
                 <div class="col-sm-10 text-right">
                     <ul>
                         <li class="btn btn-md btn-info"><a href="{{url('/login')}}">Login</li>
-                        <li class="btn btn-md btn-success"><a href="{{url('/course')}}">Create a Course</a></li>
+                        <li class="btn btn-md btn-success"><a href="{{url('/courses')}}">Create a Course</a></li>
                     </ul>
                 </div>
             @else
