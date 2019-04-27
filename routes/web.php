@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Input;
 |
 */
 
+Auth::routes();
 
 Route::get('/', function () {
   return view('layouts.index');
