@@ -24,10 +24,7 @@ Route::get('/registration/confirmation','Auth\RegisterController@confirmRegistra
     ->name('get.register.confirmation');
 Route::post('/registration','Auth\RegisterController@requestRegister')->name('post.register');
 
-// Route::resource('/student', 'StudentController');
 
-// Route::resource('mhs','MhsController');
-// Route::resource('dosen','DosenController');
-// Route::resource('matkul','MatkulController');
-
-
+Route::get('/courses','CourseController@getCoursesView')->name('get.courses');
+Route::post('/courses','CourseController@createCourse')->name('post.course.create');
+Route::post('/courses/join','CourseController@joinCourse')->name('post.course.join');
