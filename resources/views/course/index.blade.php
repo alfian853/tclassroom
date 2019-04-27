@@ -124,10 +124,11 @@ Courses
                     <div class="col-md-2"></div>
                 </div>
             </div>
+            <hr>
             <br>
             @if(count($myCourses))
-            <h1>Created Courses</h1>
-            <div class="table-responsive">
+            <h4>Created Courses</h4>
+            {{-- <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover table-condensed tfix">
                     <thead align="center">
                         <td><b>Course</b></td>
@@ -149,11 +150,39 @@ Courses
                         </tr>
                         @endforeach
                 </table>
-            </div>
+            </div> --}}
+
+            <div class="container">
+                    <div class="row">
+                      <div class="col">
+                      </div>
+                    </div>
+                    <div class="row justify-content-center">
+                      <div class="col-10">
+                        <div class="row justify-content-center">
+                          <div class="card-group">
+                          @foreach($myCourses as $course)
+                          <div class="card m-3 bg-info">
+                            <div class="card-body">
+                              <strong>Course</strong>: {{$course->name}} <br>
+                              <strong>Course Code</strong>: {{$course->course_code}} <br>
+                            </div>
+                            <div class="card-footer">
+                              <a href="/courses/{{$course->id}}" class="btn btn-warning btn-block">DETAIL</a>
+                            </div>
+                          </div>
+                          @endforeach
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+              </div>
+
             @endif
             @if(count($joinedCourses))
-            <h1>Joined Courses</h1>
-            <div class="table-responsive">
+            <h4>Joined Courses</h4>
+            {{-- <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover table-condensed tfix">
                     <thead align="center">
                         <td><b>Course</b></td>
@@ -176,7 +205,33 @@ Courses
                         </tr>
                         @endforeach
                 </table>
-            </div>
+            </div> --}}
+            <div class="container">
+                    <div class="row">
+                      <div class="col">
+                      </div>
+                    </div>
+                    <div class="row justify-content-center">
+                      <div class="col-10">
+                        <div class="row justify-content-center">
+                          <div class="card-group">
+                          @foreach($joinedCourses as $course)
+                          <div class="card m-3 bg-info">
+                            <div class="card-body">
+                              <strong>Course</strong>: {{$course->courseData->name}} <br>
+                              <strong>Course Code</strong>: {{$course->courseData->course_code}} <br>
+                            </div>
+                            <div class="card-footer">
+                              <a href="/courses/{{$course->courseData->id}}" class="btn btn-warning btn-block">DETAIL</a>
+                            </div>
+                          </div>
+                          @endforeach
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+              </div>
             @endif
         </div>
     </div>
