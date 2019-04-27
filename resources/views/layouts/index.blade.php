@@ -139,7 +139,7 @@
                                 <div class="col-md-8 col-md-offset-2 text-center slider-text">
                                     <div class="slider-text-inner">
                                         <h1>We Help You to Learn New Things</h1>
-                                        <p><a class="btn btn-primary btn-lg btn-learn" href="#">Start Learning Now!</a>
+                                        <p><a class="btn btn-primary btn-lg btn-learn" href="">Start Learning Now!</a>
                                         </p>
                                     </div>
                                 </div>
@@ -251,7 +251,7 @@
             </div>
         </div>
 
-        <footer id="fh5co-footer" role="contentinfo" style="background-image: url(images/img_bg_4.jpg);">
+    <footer id="fh5co-footer" role="contentinfo" style="background-image: url({{asset('template/education/images/img_bg_4.jpg')}});">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row row-pb-md">
