@@ -74,4 +74,9 @@ class CourseController extends Controller
         return redirect('courses');
     }
 
+    function getCourseDashboardView(Request $request){
+//        $course = Course::find($request->course_id);
+        return view('course.dashboard');
+    }
+
 }

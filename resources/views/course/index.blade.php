@@ -5,6 +5,8 @@ Courses
 
 @section('add-script')
 @parent
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -128,30 +130,6 @@ Courses
             <br>
             @if(count($myCourses))
             <h4>Created Courses</h4>
-            {{-- <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover table-condensed tfix">
-                    <thead align="center">
-                        <td><b>Course</b></td>
-                        <td><b>Course Code</b></td>
-                        <td><b>Action</b></td>
-                        @foreach($myCourses as $course)
-                        <tr>
-                            <td align="center" width="30px">
-                                <p>{{$course->name}}</p>
-                            </td>
-                            <td align="center" width="30px">
-                                {{$course->course_code}}
-                            </td>
-                            <td align="center" width="30px">
-                                <a href="/courses/{{$course->id}}" class="btn btn-warning btn-sm" role="button">
-                                    <i class="fa fa-pencil-square"></i> Detail
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                </table>
-            </div> --}}
-
             <div class="container">
                     <div class="row">
                       <div class="col">
@@ -182,30 +160,6 @@ Courses
             @endif
             @if(count($joinedCourses))
             <h4>Joined Courses</h4>
-            {{-- <div class="table-responsive">
-                <table class="table table-bordered table-striped table-hover table-condensed tfix">
-                    <thead align="center">
-                        <td><b>Course</b></td>
-                        <td><b>Course Code</b></td>
-                        <td><b>Action</b></td>
-                        @foreach($joinedCourses as $course)
-                        <tr>
-                            <td align="center" width="30px">
-                                <p>{{$course->courseData->name}}</p>
-                            </td>
-                            <td align="center" width="30px">
-                                {{$course->courseData->course_code}}
-                            </td>
-                            <td align="center" width="30px">
-                                <a href="/courses/{{$course->courseData->id}}" class="btn btn-warning btn-sm"
-                                    role="button">
-                                    <i class="fa fa-pencil-square"></i> Detail
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                </table>
-            </div> --}}
             <div class="container">
                     <div class="row">
                       <div class="col">
