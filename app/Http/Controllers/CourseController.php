@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Course;
+use App\Posting;
 use App\StudentCourse;
 use Auth;
 use Carbon\Carbon;
@@ -46,21 +47,17 @@ class CourseController extends Controller
     function joinCourse(Request $request){
         $course = Course::where('course_code','=',$request->course_code)->first();
         if($course == null){
-            Session::flash('alert','class not found');
+            Session::flash('alert','course tidak ditemukan');
             Session::flash('alert-type','failed');
             return redirect('courses');
         }
         else if($course->teacher_id == Auth::user()->id){
-            Session::flash('alert','you are already in this course');
-            Session::flash('alert-type','failed');
             return redirect('courses');
         }
         $studentCourse = StudentCourse::where('course_id','=',$course->id)
             ->where('student_id','=',Auth::user()->id)->first();
 
         if($studentCourse){
-            Session::flash('alert','you are already in this course');
-            Session::flash('alert-type','failed');
             return redirect('courses');
         }
 
@@ -69,14 +66,18 @@ class CourseController extends Controller
             'student_id' => Auth::user()->id
         ]);
 
-        Session::flash('alert','you joined '.$course->name.'course');
+        Session::flash('alert','anda telah bergabung ke '.$course->name.'course');
         Session::flash('alert-type','success');
         return redirect('courses');
     }
 
     function getCourseDashboardView(Request $request){
-//        $course = Course::find($request->course_id);
-        return view('course.dashboard');
+        $course = Course::find($request->course_id);
+        $postings = Posting::where('course_id','=',$course->id)->get();
+        return view('course.dashboard')->with([
+            'course' => $course,
+            'postings' => $postings
+        ]);
     }
 
 }

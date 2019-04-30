@@ -26,9 +26,18 @@ Route::post('/registration','Auth\RegisterController@requestRegister')->name('po
 
 
 Route::get('/courses','CourseController@getCoursesView')->name('get.courses');
-Route::get('/courses/{course_id}','CourseController@getCourseDashboardView')->name('get.courses.dashboard');
 Route::post('/courses','CourseController@createCourse')->name('post.course.create');
 Route::post('/courses/join','CourseController@joinCourse')->name('post.course.join');
 
-Route::post('/courses/{course_id}/upload-module','ModuleController@uploadModule')
-    ->name('post.module.upload');
+
+Route::group(['middleware' => ['course_access']],function(){
+    Route::get('/courses/{course_id}','CourseController@getCourseDashboardView')->name('get.courses.dashboard');
+});
+
+Route::group(['middleware' => ['course_admin']],function(){
+    Route::post('/courses/{course_id}/upload-module','ModuleController@uploadModule')
+        ->name('post.module.upload');
+    Route::post('/courses/{course_id}/post','PostingController@createPosting')
+        ->name('post.posting');
+});
+
