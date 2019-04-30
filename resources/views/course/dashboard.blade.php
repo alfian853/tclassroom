@@ -44,8 +44,8 @@
     @csrf
 
     <a class="btn btn-md btn-success" id="upload-file-trigger">
-        <i class="fa fa-plus-circle"></i>
-        <span class="padding-left:10px">Tambah Materi</span>
+        <font color="white"><i class="fa fa-plus-circle"></i>
+        <span class="padding-left:10px">Tambah Materi</span></font>
     </a>
     <div>
         <form method="post" action="{{route('post.posting',['course_id' => $course->id])}}">

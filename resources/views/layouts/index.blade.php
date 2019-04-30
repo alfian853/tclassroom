@@ -1,49 +1,90 @@
-<!DOCTYPE HTML>
-<html>
+@extends('layouts.master')
+@section('title')
+Home
+@endsection
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tclassroom</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('add-script')
+@parent
 
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400" rel="stylesheet">
 
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="{{asset('template/education/css/animate.css')}}">
-    <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="{{asset('template/education/css/icomoon.css')}}">
-    <!-- Bootstrap  -->
-    <link rel="stylesheet" href="{{asset('template/education/css/bootstrap.css')}} ">
+<!-- Animate.css -->
+<link rel="stylesheet" href="{{asset('template/education/css/animate.css')}}">
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet" href="{{asset('template/education/css/icomoon.css')}}">
+<!-- Bootstrap  -->
+<link rel="stylesheet" href="{{asset('template/education/css/bootstrap.css')}} ">
 
-    <!-- Magnific Popup -->
-    <link rel="stylesheet" href="{{asset('template/education/css/magnific-popup.css')}} ">
+<!-- Magnific Popup -->
+<link rel="stylesheet" href="{{asset('template/education/css/magnific-popup.css')}} ">
 
-    <!-- Owl Carousel  -->
-    <link rel="stylesheet" href="{{asset('template/education/css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{asset('template/education/css/owl.theme.default.min.css')}}">
+<!-- Owl Carousel  -->
+<link rel="stylesheet" href="{{asset('template/education/css/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('template/education/css/owl.theme.default.min.css')}}">
 
-    <!-- Flexslider  -->
-    <link rel="stylesheet" href="{{asset('template/education/css/flexslider.css')}}">
+<!-- Flexslider  -->
+<link rel="stylesheet" href="{{asset('template/education/css/flexslider.css')}}">
 
-    <!-- Pricing -->
-    <link rel="stylesheet" href="{{asset('template/education/css/pricing.css')}}">
+<!-- Pricing -->
+<link rel="stylesheet" href="{{asset('template/education/css/pricing.css')}}">
 
-    <!-- Theme style  -->
-    <link rel="stylesheet" href="{{asset('template/education/css/style.css')}}">
+<!-- Theme style  -->
+<link rel="stylesheet" href="{{asset('template/education/css/style.css')}}">
 
-    <!-- Modernizr JS -->
-    <script src="{{asset('template/education/js/modernizr-2.6.2.min.js')}}"></script>
-    <!-- FOR IE9 below -->
-    <!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+<!-- Modernizr JS -->
+<script src="{{asset('template/education/js/modernizr-2.6.2.min.js')}}"></script>
+<!-- FOR IE9 below -->
+<!--[if lt IE 9]>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+<!-- jQuery -->
+<script src="{{asset('template/education/js/jquery.min.js')}}"></script>
+<!-- jQuery Easing -->
+<script src="{{asset('template/education/js/jquery.easing.1.3.js')}}"></script>
+<!-- Bootstrap -->
+<script src="{{asset('template/education/js/bootstrap.min.js')}}"></script>
+<!-- Waypoints -->
+<script src="{{asset('template/education/js/jquery.waypoints.min.js')}}"></script>
+<!-- Stellar Parallax -->
+<script src="{{asset('template/education/js/jquery.stellar.min.js')}}"></script>
+<!-- Carousel -->
+<script src="{{asset('template/education/js/owl.carousel.min.js')}}"></script>
+<!-- Flexslider -->
+<script src="{{asset('template/education/js/jquery.flexslider-min.js')}}"></script>
+<!-- countTo -->
+<script src="{{asset('template/education/js/jquery.countTo.js')}}"></script>
+<!-- Magnific Popup -->
+<script src="{{asset('template/education/js/jquery.magnific-popup.min.js')}}"></script>
+<script src="{{asset('template/education/js/magnific-popup-options.js')}}"></script>
+<!-- Count Down -->
+<script src="{{asset('template/education/js/simplyCountdown.js')}}"></script>
+<!-- Main -->
+<script src="{{asset('template/education/js/main.js')}}"></script>
+<script>
+    var d = new Date(new Date().getTime() + 1000 * 120 * 120 * 2000);
 
-</head>
+    // default example
+    simplyCountdown('.simply-countdown-one', {
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+        day: d.getDate()
+    });
 
-<body>
+    //jQuery example
+    $('#simply-countdown-losange').simplyCountdown({
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+        day: d.getDate(),
+        enableUtc: false
+    });
+</script>
 
+@endsection
+
+
+
+@section('content')
     <div class="fh5co-loader"></div>
 
     <div id="page">
@@ -259,47 +300,4 @@
         <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
     </div>
 
-    <!-- jQuery -->
-    <script src="{{asset('template/education/js/jquery.min.js')}}"></script>
-    <!-- jQuery Easing -->
-    <script src="{{asset('template/education/js/jquery.easing.1.3.js')}}"></script>
-    <!-- Bootstrap -->
-    <script src="{{asset('template/education/js/bootstrap.min.js')}}"></script>
-    <!-- Waypoints -->
-    <script src="{{asset('template/education/js/jquery.waypoints.min.js')}}"></script>
-    <!-- Stellar Parallax -->
-    <script src="{{asset('template/education/js/jquery.stellar.min.js')}}"></script>
-    <!-- Carousel -->
-    <script src="{{asset('template/education/js/owl.carousel.min.js')}}"></script>
-    <!-- Flexslider -->
-    <script src="{{asset('template/education/js/jquery.flexslider-min.js')}}"></script>
-    <!-- countTo -->
-    <script src="{{asset('template/education/js/jquery.countTo.js')}}"></script>
-    <!-- Magnific Popup -->
-    <script src="{{asset('template/education/js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{asset('template/education/js/magnific-popup-options.js')}}"></script>
-    <!-- Count Down -->
-    <script src="{{asset('template/education/js/simplyCountdown.js')}}"></script>
-    <!-- Main -->
-    <script src="{{asset('template/education/js/main.js')}}"></script>
-    <script>
-        var d = new Date(new Date().getTime() + 1000 * 120 * 120 * 2000);
 
-        // default example
-        simplyCountdown('.simply-countdown-one', {
-            year: d.getFullYear(),
-            month: d.getMonth() + 1,
-            day: d.getDate()
-        });
-
-        //jQuery example
-        $('#simply-countdown-losange').simplyCountdown({
-            year: d.getFullYear(),
-            month: d.getMonth() + 1,
-            day: d.getDate(),
-            enableUtc: false
-        });
-    </script>
-</body>
-
-</html>

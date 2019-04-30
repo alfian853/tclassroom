@@ -23,10 +23,10 @@ class FileUploadModal {
             '                    <span aria-hidden="true">×</span>\n' +
             '                </button>\n' +
             '            </div>\n' +
-            '            <div id="dropzone" style="margin-top:20px;">\n' +
-            '                <form class="dropzone needsclick mx-4" id="'+formId+'" action="'+this.uploadUrl+'">\n' +
+            '            <div id="dropzone" style="margin-top:20px;" class="form-group">\n' +
+            '                <form class="dropzone needsclick mx-4 mt-3 mb-2" style="border:1px; border-style:dashed; " id="'+formId+'" action="'+this.uploadUrl+'">\n' +
             '                    <input type="hidden"/>\n' +
-            '                    <div class="dz-message needsclick">\n' +
+            '                    <div class="dz-message needsclick form-control btn btn-outline-success">\n' +
             '                        Drop the file here or click here for select file\n' +
             '                        <i class="fa fa-paper-plane-o ml-1"></i>\n' +
             '                        <br/>\n' +
@@ -34,7 +34,7 @@ class FileUploadModal {
             '                </form>\n' +
             '            </div>\n' +
             '            <div class="modal-footer justify-content-center d-flex" style="margin-top:20px;">\n' +
-            '                <button id="'+submitBtnId+'" class="submit" style="margin-top: 0px;margin-left:0px;">Upload</button>\n' +
+            '                <button id="'+submitBtnId+'" class="submit btn btn-block btn-primary" style="margin-top: 0px;margin-left:0px;">Upload</button>\n' +
             '            </div>\n' +
             '        </div>\n' +
             '    </div>\n' +
