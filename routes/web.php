@@ -17,7 +17,9 @@ Auth::routes();
 Route::get('/', function () {
   return view('layouts.index');
 })->name('home');
-
+Route::any('ViewerJS/{all?}', function(){
+    return View::make('ViewerJS.index');
+});
 
 Route::get('/registration','Auth\RegisterController@getRegister')->name('get.register');
 Route::get('/registration/confirmation','Auth\RegisterController@confirmRegistration')

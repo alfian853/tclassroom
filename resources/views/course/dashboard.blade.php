@@ -5,6 +5,8 @@
 
 @section('add-script')
     @parent
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.3/viewer.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.3.3/viewer.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
     <script src="{{asset('js/file_upload.js')}}"></script>
@@ -59,7 +61,10 @@
         <div style="color: #0b0b0b;">
             {!! html_entity_decode($posting->content) !!}
         </div>
-
     @endforeach
+    <iframe src="https://docs.google.com/gview?url=http://localhost:8000/course_modules/2019-04-30-07-04-32-DraftProposalTA_Alfian.pdf&embedded=true"></iframe>
+    {{--<iframe src = "/ViewerJS/index.html#../course_modules/Tugas_1_IMK.docx" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
+    {{--<iframe src = "/course_modules/Interoperability2.ppt" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
+
 
 @endsection
