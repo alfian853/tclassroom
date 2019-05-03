@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CourseModule;
+use App\BahanAjar;
 use App\Helpers\ResourceUrlHelper;
 use App\Posting;
 use Auth;
@@ -16,7 +16,7 @@ class ModuleController extends Controller
         if($request->file('file') != null){
             $originalName = $request->file('file')->getClientOriginalName();
             $fileName = date('Y-m-d-H-m-s').'-'.$originalName;
-            CourseModule::create([
+            BahanAjar::create([
                 'file_name' => $fileName,
                 'course_id' => $request->course_id
             ]);

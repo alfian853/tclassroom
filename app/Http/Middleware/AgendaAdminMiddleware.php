@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Course;
+use App\Agenda;
 use Auth;
 use Closure;
 use Session;
 
-class CourseAdminMiddleware
+class AgendaAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,20 +18,20 @@ class CourseAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $res = Course::find($request->course_id);
+        $res = Agenda::find($request->agenda_id);
         if($res == null){
-            Session::flash('alert','course tidak ditemukan');
+            Session::flash('alert','agenda tidak ditemukan');
             Session::flash('alert-type','warning');
-            return redirect('/courses');
+            return redirect('/list_agenda');
         }
 
-        $userId = Auth::user()->id;
-        if($res->teacher_id == $userId){
+        $user = Auth::user();
+        if($res->teacher_id == $user->idUser){
             return $next($request);
         }
 
         Session::flash('alert','unauthorized');
         Session::flash('alert-type','failed');
-        return redirect('courses/'.$request->course_id);
+        return redirect('/list_agenda');
     }
 }

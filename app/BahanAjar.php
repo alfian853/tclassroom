@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CourseModule extends Model
+class BahanAjar extends Model
 {
     protected $primaryKey='id';
-    protected $table='course_modules';
-    protected $fillable = ['course_id','file_name'];
+    protected $table='bahan_ajar';
+    protected $fillable = ['pertemuan_id','filename'];
     public $timestamps = true;
 }

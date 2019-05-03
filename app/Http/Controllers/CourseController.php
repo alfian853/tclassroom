@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 
-use App\Course;
+use App\Agenda;
 use App\Posting;
-use App\StudentCourse;
+use App\MhsAgenda;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,8 +16,8 @@ class CourseController extends Controller
 {
 
     function getCoursesView(){
-        $myCourses = Course::where('teacher_id','=',Auth::user()->id)->get();
-        $joinedCourses = StudentCourse::where('student_id','=',Auth::user()->id)->get();
+        $myCourses = Agenda::where('teacher_id','=',Auth::user()->id)->get();
+        $joinedCourses = MhsAgenda::where('student_id','=',Auth::user()->id)->get();
         return view('course/index')->with([
             'myCourses' => $myCourses,
             'joinedCourses' => $joinedCourses
@@ -35,7 +35,7 @@ class CourseController extends Controller
             return redirect('courses');
         }
 
-        Course::create([
+        Agenda::create([
             'course_code' => substr(md5(Carbon::now()->toAtomString()),0,5),
             'name' => $request->course_name,
             'description' => $request->description,
@@ -45,7 +45,7 @@ class CourseController extends Controller
     }
 
     function joinCourse(Request $request){
-        $course = Course::where('course_code','=',$request->course_code)->first();
+        $course = Agenda::where('course_code','=',$request->course_code)->first();
         if($course == null){
             Session::flash('alert','course tidak ditemukan');
             Session::flash('alert-type','failed');
@@ -54,14 +54,14 @@ class CourseController extends Controller
         else if($course->teacher_id == Auth::user()->id){
             return redirect('courses');
         }
-        $studentCourse = StudentCourse::where('course_id','=',$course->id)
+        $studentCourse = MhsAgenda::where('course_id','=',$course->id)
             ->where('student_id','=',Auth::user()->id)->first();
 
         if($studentCourse){
             return redirect('courses');
         }
 
-        StudentCourse::create([
+        MhsAgenda::create([
             'course_id' => $course->id,
             'student_id' => Auth::user()->id
         ]);
@@ -72,7 +72,7 @@ class CourseController extends Controller
     }
 
     function getCourseDashboardView(Request $request){
-        $course = Course::find($request->course_id);
+        $course = Agenda::find($request->course_id);
         $postings = Posting::where('course_id','=',$course->id)->get();
         return view('course.dashboard')->with([
             'course' => $course,

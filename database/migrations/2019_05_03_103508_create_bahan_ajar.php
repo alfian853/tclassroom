@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostings extends Migration
+class CreateBahanAjar extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreatePostings extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('postings');
-        Schema::create('postings', function (Blueprint $table) {
+        Schema::dropIfExists('bahan_ajar');
+        Schema::create('bahan_ajar', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('course_id')->unsigned();
-            $table->string('content',256);
-            $table->string('type',32);
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->integer('pertemuan_id')->unsigned();
+            $table->string('filename');
+            $table->foreign('pertemuan_id')->references('id')->on('pertemuan');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreatePostings extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('postings');
+        Schema::dropIfExists('bahan_ajar');
     }
 }

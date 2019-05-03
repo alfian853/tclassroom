@@ -172,7 +172,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 1</a></h3>
-                                {{-- <p>Course mengenai materi semester 1</p> --}}
+                                {{-- <p>Agenda mengenai materi semester 1</p> --}}
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 2</a></h3>
-                                {{-- <p>Course mengenai materi semester 2</p> --}}
+                                {{-- <p>Agenda mengenai materi semester 2</p> --}}
                             </div>
                         </div>
                     </div>
@@ -194,7 +194,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 3</a></h3>
-                                {{-- <p>Course mengenai materi semester 3</p> --}}
+                                {{-- <p>Agenda mengenai materi semester 3</p> --}}
                             </div>
                         </div>
                     </div>
@@ -205,7 +205,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 4</a></h3>
-                                {{-- <p>Course mengenai materi semeter 4</p> --}}
+                                {{-- <p>Agenda mengenai materi semeter 4</p> --}}
                             </div>
                         </div>
                     </div>
@@ -216,7 +216,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 5</a></h3>
-                                {{-- <p>Course mengenai materi semester 5</p> --}}
+                                {{-- <p>Agenda mengenai materi semester 5</p> --}}
                             </div>
                         </div>
                     </div>
@@ -227,7 +227,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 6</a></h3>
-                                {{-- <p>Course mengenai materi semester 6</p> --}}
+                                {{-- <p>Agenda mengenai materi semester 6</p> --}}
                             </div>
                         </div>
                     </div>
@@ -238,7 +238,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 7</a></h3>
-                                {{-- <p>Course mengenai materi semester 7</p> --}}
+                                {{-- <p>Agenda mengenai materi semester 7</p> --}}
                             </div>
                         </div>
                     </div>
@@ -249,7 +249,7 @@ Home
                             </span>
                             <div class="desc">
                                 <h3><a href="">Semester 8</a></h3>
-                                {{-- <p>Course mengenai materi semester 8</p> --}}
+                                {{-- <p>Agenda mengenai materi semester 8</p> --}}
                             </div>
                         </div>
                     </div>

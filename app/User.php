@@ -3,7 +3,7 @@
 namespace App;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Notifications\Notifiable;
-
+//source : etc.if.its.ac.id
 class User extends Authenticable
 {
     use Notifiable;

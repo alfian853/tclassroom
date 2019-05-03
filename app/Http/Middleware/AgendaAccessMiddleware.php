@@ -2,13 +2,14 @@
 
 namespace App\Http\Middleware;
 
-use App\Course;
-use App\StudentCourse;
+use App\Agenda;
+use App\Kehadiran;
+use App\MhsAgenda;
 use Auth;
 use Closure;
 use Session;
 
-class CourseAccessMiddleware
+class AgendaAccessMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,23 +21,25 @@ class CourseAccessMiddleware
     public function handle($request, Closure $next)
     {
 
-        $res = Course::find($request->course_id);
+        $res = Agenda::find($request->agenda_id);
         if($res == null){
-            Session::flash('alert','course tidak ditemukan');
+            Session::flash('alert','agenda_tidak_ditemukan');
             Session::flash('alert-type','warning');
-            return redirect('/courses');
+            return redirect('/list_agenda');
         }
 
-        $userId = Auth::user()->id;
-        if($res->teacher_id == $userId){
+        $user = Auth::user();
+        if($res->fk_idPIC == $user->idUser){
             return $next($request);
         }
 
-        $res = StudentCourse::where('student_id','=',$userId)->first();
+        $res = Kehadiran::where('idAgenda','=',$request->agenda_id)
+            ->where('idUser','=',$user->idUser)->first();
+
         if($res == null){
-            Session::flash('alert','silahkan join course terlebih dahulu');
+            Session::flash('alert','anda buka mahasiswa kelas ini');
             Session::flash('alert-type','failed');
-            return redirect('/courses');
+            return redirect('/list_agenda');
         }
 
         return $next($request);
