@@ -11,12 +11,12 @@ Courses
 <script>
     $(document).ready(function () {
 
-        $('#create-course-trigger').click(function () {
-            $('#new-course-modal').modal('show')
+        $('#create-agenda-trigger').click(function () {
+            $('#new-agenda-modal').modal('show')
         })
 
-        $('#join-course-trigger').click(function () {
-            $('#join-course-modal').modal('show')
+        $('#join-agenda-trigger').click(function () {
+            $('#join-agenda-modal').modal('show')
         })
 
     })
@@ -61,7 +61,7 @@ Courses
     <div class="modal fade" id="new-course-modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
-            <form action="{{route('post.course.create')}}" method="post" class="modal-content form-group">
+            <form action="{{route('agenda')}}" method="post" class="modal-content form-group">
                 {{csrf_field()}}
                 <div class="modal-header">
                     <h4 class="modal-title">Create Course</h4>
@@ -86,7 +86,7 @@ Courses
     <div class="modal fade" id="join-course-modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
-            <form action="{{route('post.course.join')}}" method="post" class="modal-content form-group">
+            <form action="{{route('agenda')}}" method="post" class="modal-content form-group">
                 {{csrf_field()}}
                 <div class="modal-header">
                     <h4 class="modal-title">Join Course</h4>

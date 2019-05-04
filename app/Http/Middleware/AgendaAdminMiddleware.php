@@ -26,7 +26,7 @@ class AgendaAdminMiddleware
         }
 
         $user = Auth::user();
-        if($res->teacher_id == $user->idUser){
+        if($res->fk_idPIC == $user->idUser){
             return $next($request);
         }
 

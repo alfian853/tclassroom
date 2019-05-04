@@ -161,7 +161,7 @@ Home
                 <div class="row animate-box">
                     <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
                         <h2>Course Categories</h2>
-                        {{-- <p>Jenis-jenis kategori course Tclassroom</p> --}}
+                        {{-- <p>Jenis-jenis kategori agenda Tclassroom</p> --}}
                     </div>
                 </div>
                 <div class="row">
