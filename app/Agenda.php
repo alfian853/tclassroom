@@ -12,6 +12,7 @@ class Agenda extends Model
         'namaAgenda','singkatAgenda','tanggal','hari','fk_idRuang',
         'WaktuMulai','WaktuSelesai','fk_idPIC','notule'
     ];
+    public $incrementing = false;
     public $timestamps = true;
 
 }

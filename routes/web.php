@@ -27,19 +27,23 @@ Route::get('/registration/confirmation','Auth\RegisterController@confirmRegistra
 Route::post('/registration','Auth\RegisterController@requestRegister')->name('post.register');
 
 
-Route::get('/courses','CourseController@getCoursesView')->name('get.courses');
-Route::post('/courses','CourseController@createCourse')->name('post.course.create');
-Route::post('/courses/join','CourseController@joinCourse')->name('post.course.join');
+Route::get('/list_agenda','AgendaController@getListAgenda')->name('get.agenda.list');
 
+Route::group(['middleware' => ['auth']], function (){
+    Route::group(['middleware' => ['course_access']],function(){
+        Route::get('/agenda/{agenda_id}','AgendaController@getAgendaDetail')->name('get.agenda.detail');
+        Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/materi','AgendaController@getListMateri')
+            ->name('get.agenda.materi');
+        Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas','AgendaController@getListTugas')
+            ->name('get.agenda.tugas');
+    });
 
-Route::group(['middleware' => ['course_access']],function(){
-    Route::get('/courses/{course_id}','CourseController@getCourseDashboardView')->name('get.courses.dashboard');
+    Route::group(['middleware' => ['course_admin']],function(){
+        Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/materi','AgendaController@uploadMateri')
+            ->name('post.agenda.materi');
+        Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas','AgendaController@createTugas')
+            ->name('post.agenda.tugas');
+    });
 });
 
-Route::group(['middleware' => ['course_admin']],function(){
-    Route::post('/courses/{course_id}/upload-module','ModuleController@uploadModule')
-        ->name('post.module.upload');
-    Route::post('/courses/{course_id}/post','PostingController@createPosting')
-        ->name('post.posting');
-});
 
