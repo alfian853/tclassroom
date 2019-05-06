@@ -63,7 +63,7 @@
         </div>
     @endforeach
     <iframe src="https://docs.google.com/gview?url=http://localhost:8000/course_modules/2019-04-30-07-04-32-DraftProposalTA_Alfian.pdf&embedded=true"></iframe>
-    {{--<iframe src = "/ViewerJS/index.html#../course_modules/Tugas_1_IMK.docx" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
+    <iframe src = "/ViewerJS/index.html#../course_modules/Tugas_1_IMK.docx" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>
     {{--<iframe src = "/course_modules/Interoperability2.ppt" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
 
 
