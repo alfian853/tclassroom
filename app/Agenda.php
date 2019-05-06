@@ -15,4 +15,8 @@ class Agenda extends Model
     public $incrementing = false;
     public $timestamps = true;
 
+    function mahasiswa(){
+        return $this->belongsTo('App\Kehadiran','idAgenda','idAgenda');
+    }
+
 }

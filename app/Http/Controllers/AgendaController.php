@@ -4,21 +4,28 @@ namespace App\Http\Controllers;
 
 
 use App\Agenda;
+use App\Helpers\AgendaRoleChecker;
+use App\Kehadiran;
 use App\Materi;
+use App\PengumpulanTugas;
 use App\Pertemuan;
 use Auth;
 use Illuminate\Http\Request;
 use Session;
 use Storage;
-use Validator;
 
 class AgendaController extends Controller
 {
 
     function getListAgenda(){
         $createdAgenda = Agenda::where('fk_idPIC','=',Auth::user()->idUser)->get();
+        $joinedAgenda = Agenda::whereHas('mahasiswa',function($query){
+            $query->where('idUser','=',Auth::user()->idUser);
+        })->get();
+
         return view('agenda.list_agenda')->with([
-            'createdAgenda' => $createdAgenda
+            'createdAgenda' => $createdAgenda,
+            'joinedAgenda' => $joinedAgenda
         ]);
     }
 
@@ -48,7 +55,6 @@ class AgendaController extends Controller
     }
 
     function uploadMateri(Request $request){
-//        dd($request);
         if($request->file('file') != null){
             $originalName = $request->file('file')->getClientOriginalName();
             $fileName = date('Y-m-d-H-m-s').'-'.$originalName;
@@ -69,5 +75,40 @@ class AgendaController extends Controller
         }
     }
 
+    function deleteMateri(Request $request){
+        $materi = Materi::where('id','=',$request->materi_id)->first();
+        if($materi == null){
+            Session::flash('alert', 'file tidak ditemukan');
+            Session::flash('alert-type', 'failed');
+            return back();
+        }
+        Storage::delete('resources/materi/'.$materi->filename);
+        $materi->delete();
+        Session::flash('alert','file '.$materi->filename.' telah dihapus');
+        Session::flash('alert-type','success');
+        return back();
+    }
+
+    function getListPengumpulanTugas(Request $request){
+        if(AgendaRoleChecker::isPIC($request->agenda_id)){
+            $pertemuan = Pertemuan::where('agenda_id','=',$request->agenda_id)
+            ->where('no_pertemuan','=',$request->no_pertemuan)->first();
+            if($pertemuan == null){
+                abort(404);
+            }
+            $listPengumpulanTugas = PengumpulanTugas::where('pertemuan_id','=',$pertemuan->id)->get();
+
+            
+        }
+        else{
+            $pertemuan = Pertemuan::where('agenda_id','=',$request->agenda_id);
+
+            if($pertemuan == null){
+                abort(404);
+            }
+            $pengumpulanTugas = PengumpulanTugas::where('pertemuan_id','=',$pertemuan->id)
+            ->where('mhs_id','=',Auth::user()->idUser)->first();
+        }
+    }
 
 }
