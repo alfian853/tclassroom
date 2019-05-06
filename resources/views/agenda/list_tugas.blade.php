@@ -73,10 +73,9 @@ $(function () {
     <tr>
         <td>{{$tugas->deskripsi}}</td>
         <td>{{$tugas->deadline}}</td>
-        <td><button class="btn btn-primary">Detail Tugas</button>
-            {{-- <button class="btn btn-success">Upload Tugas</button> --}}
+        <td>                   
+            <a href="{{route('get.detail.tugas',['agenda_id' => request()->agenda_id,'pertemuan_id' => request()->no_pertemuan])}}" class="btn btn-success">Detail tugas</a>
         </td>
-        {{-- <td><a href="/resources/tugas/{{$tugas->filename}}">download</a></td> --}}
     </tr>
     @endforeach
 
