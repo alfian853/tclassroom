@@ -37,11 +37,12 @@
     @csrf
 
     @if(\App\Helpers\AgendaRoleChecker::isPIC(request()->agenda_id))
-
+        <div class="container">
         <a class="btn btn-md btn-success" id="upload-file-trigger">
             <font color="white"><i class="fa fa-plus-circle"></i>
                 <span class="padding-left:10px">Tambah Materi</span></font>
         </a>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -74,6 +75,8 @@
         </div>
     </div></center>
 
+    <div class="container">
+        <div class="row" align="center">
     <table class="table table-striped">
         <tr>
             <th>Nama File</th>
@@ -106,5 +109,6 @@
     </table>
 
     {{--<iframe src = "/ViewerJS/index.html#../resources/materi/2019-05-04-08-05-11-DraftProposalTA_Alfian.pdf" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
-
+        </div>
+    </div>
 @endsection
