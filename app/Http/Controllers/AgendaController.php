@@ -9,7 +9,10 @@ use App\Kehadiran;
 use App\PengumpulanTugas;
 use App\Pertemuan;
 use Auth;
+use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
+use Phalcon\Flash;
 use Session;
 use Storage;
 use Validator;
@@ -55,7 +58,6 @@ class AgendaController extends Controller
     }
 
     function uploadMateri(Request $request){
-//        dd($request);
         if($request->file('file') != null){
             $originalName = $request->file('file')->getClientOriginalName();
             $fileName = date('Y-m-d-H-m-s').'-'.$originalName;
@@ -76,26 +78,6 @@ class AgendaController extends Controller
         }
     }
 
-    function getListTugas(Request $request){
-        $pertemuan = Pertemuan::where('agenda_id','=',$request->agenda_id)
-            ->where('no_pertemuan','=',$request->no_pertemuan)->first();
-        $list_tugas = Tugas::where('pertemuan_id','=',$pertemuan->id)->get();
-        return view('agenda.list_tugas')->with([
-            'list_tugas' => $list_tugas
-        ]);
-    } 
-
-    function createTugas(Request $request) {
-        // $tugas = Tugas::create($request->all());    
-       $request = Tugas::create([
-            'deskripsi' => $request->deskripsi,
-            'deadline' => $request->deadline,
-            'pertemuan_id' => Pertemuan::where('no_pertemuan','=',$request->no_pertemuan)
-                ->where('agenda_id','=',$request->agenda_id)->first()->id
-        ]);
-        return redirect()->back()->with('success', 'Tugas telah ditambahkan'); 
-    }
-
     function deleteMateri(Request $request){
         $materi = Materi::where('id','=',$request->materi_id)->first();
         if($materi == null){
@@ -110,6 +92,54 @@ class AgendaController extends Controller
         return back();
     }
 
+    function getListTugas(Request $request){
+        $pertemuan = Pertemuan::where('agenda_id','=',$request->agenda_id)
+            ->where('no_pertemuan','=',$request->no_pertemuan)->first();
+        $list_tugas = Tugas::where('pertemuan_id','=',$pertemuan->id)->get();
+        $agenda = Agenda::where('idAgenda','=',$request->agenda_id)->first();
+
+        if(AgendaRoleChecker::isPIC($request->agenda_id)){
+            return view('agenda.list_tugas_pic')->with([
+                'list_tugas' => $list_tugas,
+                'agenda' => $agenda
+            ]);
+        }
+        else{
+            return view('agenda.list_tugas_mhs')->with([
+                'list_tugas' => $list_tugas,
+                'agenda' => $agenda
+            ]);
+        }
+    }
+
+    function createTugas(Request $request) {
+        $tugas = Tugas::create([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'deadline' => $request->deadline,
+            'pertemuan_id' => Pertemuan::where('no_pertemuan','=',$request->no_pertemuan)
+                ->where('agenda_id','=',$request->agenda_id)->first()->id
+        ]);
+
+        $listMahasiswa = $tugas->pertemuan->agenda->mahasiswa;
+
+        foreach ($listMahasiswa as $mhs){
+            PengumpulanTugas::create([
+                'tugas_id' => $tugas->id,
+                'mhs_id' => $mhs->idUser
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Tugas telah ditambahkan'); 
+    }
+
+    function deleteTugas(Request $request){
+        Tugas::where('id','=',$request->tugas_id)->first()->delete();
+        Session::flash('alert','tugas berhasil dihapus');
+        Session::flash('alert-type','success');
+        return back();
+    }
+
     function getListPengumpulanTugas(Request $request){
         if(AgendaRoleChecker::isPIC($request->agenda_id)){
             $pertemuan = Pertemuan::where('agenda_id','=',$request->agenda_id)
@@ -118,9 +148,10 @@ class AgendaController extends Controller
                 abort(404);
             }
 
-            $listPengumpulanTugas = PengumpulanTugas::with('pertemuan_id','=',$pertemuan->id)->get();
+            $listPengumpulanTugas = Tugas::where('pertemuan_id','=',$pertemuan->id)->first()->pengumpulan;
             return view('agenda.pengumpulan_tugas_pic')->with([
-                'listPengumpulanTugas' => $listPengumpulanTugas
+                'listPengumpulanTugas' => $listPengumpulanTugas,
+                'agenda' => $pertemuan->agenda
             ]);   
 
         }
@@ -132,6 +163,38 @@ class AgendaController extends Controller
             }
             $pengumpulanTugas = PengumpulanTugas::with('pertemuan_id','=',$pertemuan->id)
             ->where('mhs_id','=',Auth::user()->idUser)->first();
+        }
+    }
+
+    function submitTugas(Request $request){
+        if($request->file('file') != null){
+            $tugas = Tugas::where('id','=',$request->tugas_id)->first();
+
+            $deadLine = $tugas->first()->deadline;
+            $now = Carbon::now();
+            if($now > $deadLine){
+                Session::flash('alert','Batas waktu pengumpulan tugas telah berakhir!');
+                Session::flash('alert-type','failed');
+                return back();
+            }
+
+            $originalName = $request->file('file')->getClientOriginalName();
+            $fileName = date('Y-m-d-H-m-s').'-'.$originalName;
+
+            $pTugas = PengumpulanTugas::where('tugas_id','=',$request->tugas_id)
+            ->where('mhs_id','=',Auth::user()->idUser)
+            ->update([
+                'filename' => $fileName,
+                'waktu_submit' => Carbon::now()
+            ]);
+
+            Storage::putFileAs('resources/tugas', $request->file('file'), $fileName);
+            Session::flash('alert','Tugas berhasil dikumpulkan');
+            Session::flash('alert-type','success');
+        }
+        else{
+            Session::flash('alert','Upload Failed');
+            Session::flash('alert-type','Failed');
         }
     }
 

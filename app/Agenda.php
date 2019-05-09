@@ -16,7 +16,7 @@ class Agenda extends Model
     public $timestamps = true;
 
     function mahasiswa(){
-        return $this->belongsTo('App\Kehadiran','idAgenda','idAgenda');
+        return $this->hasMany('App\Kehadiran','idAgenda','idAgenda');
     }
 
 }

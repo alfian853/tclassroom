@@ -35,15 +35,19 @@ Route::group(['middleware' => ['auth']], function (){
             ->name('get.agenda.detail');
         Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/materi','AgendaController@getListMateri')
             ->name('get.agenda.materi');
+        Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas','AgendaController@getListTugas')
+            ->name('get.agenda.tugas');
+        Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/{tugas_id}/submit',
+            'AgendaController@submitTugas')->name('post.tugas.submit');
     });
 
     Route::group(['middleware' => ['course_admin']],function(){
         Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/materi','AgendaController@uploadMateri')
             ->name('post.agenda.materi');
-        Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas','AgendaController@getListTugas')
-            ->name('get.agenda.tugas');
         Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas','AgendaController@createTugas')
             ->name('post.agenda.tugas');
+        Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/{tugas_id}/delete',
+            'AgendaController@deleteTugas')->name('post.tugas.delete');
         Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/materi/{materi_id}/delete','AgendaController@deleteMateri')
             ->name('delete.agenda.materi');
         Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/detail','AgendaController@getListPengumpulanTugas')

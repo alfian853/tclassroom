@@ -6,6 +6,16 @@ class FileUploadModal {
         this.modalTitle = modalTitle;
         this.onSuccessHandler = () => {}
         this.onErrorHandler = () => {}
+        this.modalId = Math.random();
+    }
+
+    setUploadUrl(uploadUrl){
+        this.uploadUrl = uploadUrl
+
+    }
+
+    getUploadUrl(){
+        return this.uploadUrl
     }
 
     init(){
@@ -24,7 +34,8 @@ class FileUploadModal {
             '                </button>\n' +
             '            </div>\n' +
             '            <div id="dropzone" style="margin-top:20px;" class="form-group">\n' +
-            '                <form class="dropzone needsclick mx-4 mt-3 mb-2" style="border:1px; border-style:dashed; " id="'+formId+'" action="'+this.uploadUrl+'">\n' +
+            '                <form class="dropzone needsclick mx-4 mt-3 mb-2" style="border:1px; border-style:dashed; " id="'+formId+'" ' +
+            'action="'+this.uploadUrl+'">\n' +
             '                    <input type="hidden"/>\n' +
             '                    <div class="dz-message needsclick form-control btn btn-outline-success">\n' +
             '                        Drop the file here or click here for select file\n' +
@@ -42,8 +53,8 @@ class FileUploadModal {
 
         let onSuccessHandler = this.onSuccessHandler;
         let onErrorHandler = this.onErrorHandler;
-
-        $('#'+formId).dropzone({
+        let self = this
+        this.dropzone = $('#'+formId).dropzone({
             url : this.uploadUrl,
             headers : { 'X-CSRF-TOKEN': this.csrf } ,
             maxFiles : 1,
@@ -58,7 +69,9 @@ class FileUploadModal {
                     prevFile = file;
                 });
 
-                $('#'+submitBtnId).click(function () {
+                $('#'+submitBtnId).click( () => {
+                    console.log(self.uploadUrl)
+                    this.options.url = self.uploadUrl
                     myDropzone.processQueue();
                 });
 
@@ -77,7 +90,6 @@ class FileUploadModal {
     }
 
     getModalId(){
-        console.log(this.modalId)
         return this.modalId;
     }
 

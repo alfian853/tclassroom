@@ -10,6 +10,7 @@
     <script src="{{asset('js/file_upload.js')}}"></script>
     <script>
         function viewDocument(link){
+            $('#document-iframe').attr('src','/ViewerJS/index.html#..'+link);
             $('#view-document-modal').modal('show');
         }
 
@@ -34,41 +35,44 @@
 
 @section('content')
     @csrf
-    <a class="btn btn-md btn-success" id="upload-file-trigger">
-        <font color="white"><i class="fa fa-plus-circle"></i>
-            <span class="padding-left:10px">Tambah Materi</span></font>
-    </a>
 
+    @if(\App\Helpers\AgendaRoleChecker::isPIC(request()->agenda_id))
+
+        <a class="btn btn-md btn-success" id="upload-file-trigger">
+            <font color="white"><i class="fa fa-plus-circle"></i>
+                <span class="padding-left:10px">Tambah Materi</span></font>
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Hapus Materi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h2>Apakah Anda Yakin Ingin Menghapus Materi? </h2>
+                        <h3 id="nama-materi"></h3>
+                    </div>
+                    <form id="form-delete-materi" class="modal-footer" method="post" action="">
+                        @csrf
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    @endif
    <center> <div id="view-document-modal" class="modal fade">
         <div class="modal-body">
-            <iframe id="document-iframe" src = "/ViewerJS/index.html#../resources/materi/2019-05-04-08-05-11-DraftProposalTA_Alfian.pdf"
+            <iframe id="document-iframe" src = ""
                     width='800' height='800' allowfullscreen webkitallowfullscreen></iframe>
         </div>
     </div></center>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Hapus Materi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h2>Apakah Anda Yakin Ingin Menghapus Materi? </h2>
-                    <h3 id="nama-materi"></h3>
-                </div>
-                <form id="form-delete-materi" class="modal-footer" method="post" action="">
-                    @csrf
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <table class="table table-striped">
         <tr>
