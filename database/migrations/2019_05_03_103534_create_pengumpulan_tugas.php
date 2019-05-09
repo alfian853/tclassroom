@@ -17,10 +17,11 @@ class CreatePengumpulanTugas extends Migration
         Schema::create('pengumpulan_tugas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tugas_id')->unsigned();
-            $table->integer('mhs_id')->unsigned();
+            $table->string('mhs_id');
             $table->string('filename');
             $table->integer('nilai');
-            $table->timestamps();
+            $table->dateTime('waktu_submit');
+            $table->foreign('tugas_id')->references('id')->on('tugas')->onDelete('cascade');
         });
     }
 

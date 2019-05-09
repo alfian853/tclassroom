@@ -17,8 +17,10 @@ class CreateTugas extends Migration
         Schema::create('tugas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('pertemuan_id')->unsigned();
+            $table->string('judul');
             $table->string('deskripsi');
             $table->dateTime('deadline');
+            $table->foreign('pertemuan_id')->references('id')->on('pertemuan');
             $table->timestamps();
         });
     }
