@@ -47,12 +47,12 @@ $(function () {
                             <strong> <label for="judul">Judul Tugas : </label></strong>
                         </div>
                         <div class="col-md-8 mt-3">
-                            <input type="text" class="form-control" name="judul" minlength="8">
+                            <input type="text" class="form-control" name="judul" placeholder="Judul Tugas" minlength="8">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mt-3">
                             <strong> <label for="deskripsi">Deskripsi Tugas : </label></strong>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 mt-3">
                             <textarea type="text" name="deskripsi" class="form-control"
                                       minlength="20"
                                       placeholder="Deskripsi Tugas"></textarea>
@@ -61,7 +61,7 @@ $(function () {
                             <strong> <label for="deadline">Deadline Tugas : </label></strong>
                         </div>
                         <div class="col-md-8 mt-3">
-                            <input type="text" class="form-control" name="deadline" id="datetime">
+                            <input type="text" class="form-control" name="deadline" placeholder="Deadline" id="datetime">
                         </div>
                     </div>
                     <div class="modal-footer">

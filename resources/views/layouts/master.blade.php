@@ -14,6 +14,7 @@
   </head>
   <body style="margin-top:56px;">
 
+    @include('layouts.navbar')
 
     @if(!empty(Session::has('alert')))
       @if (Session::get('alert-type') == 'success')

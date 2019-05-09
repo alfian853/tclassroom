@@ -1,0 +1,14 @@
+.episode-number {
+    border: 2px solid #0062cc;
+    text-align: center;
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    text-transform: uppercase;
+    line-height: 60px;
+    border-radius: 70%;
+    background: #007bff;
+    color: #fff;
+    font-size: 30px;
+}
+
