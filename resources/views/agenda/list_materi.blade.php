@@ -37,6 +37,7 @@ List Materi
 @csrf
 
 @if(\App\Helpers\AgendaRoleChecker::isPIC(request()->agenda_id))
+<p style="padding-top:5px;"></p>
 <div class="container">
     <a class="btn btn-md btn-success" id="upload-file-trigger">
         <font color="white"><i class="fa fa-plus-circle"></i>
@@ -70,38 +71,46 @@ List Materi
 
 @endif
 
-    <div class="modal fade" id="view-document-modal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <iframe id="document-iframe" src="" width='470' height='680' allowfullscreen webkitallowfullscreen></iframe>
-                </div>
+<div class="modal fade" id="view-document-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="document-iframe" src="" width='470' height='680' allowfullscreen
+                    webkitallowfullscreen></iframe>
             </div>
         </div>
     </div>
-
+</div>
+<p style="padding-top:10px;"></p>
 <div class="container">
-    <div class="row" align="center">
-        <table class="table table-striped">
-            <tr>
-                <th>Nama File</th>
-                <th>Tanggal Upload</th>
-                <th>Action</th>
-            </tr>
-            @foreach($list_materi as $materi)
-            <tr>
-                <td>{{$materi->filename}}</td>
-                <td>{{$materi->created_at}}</td>
-                <td>
-                    <a class="btn btn-success" href="/resources/materi/{{$materi->filename}}">download</a>
-                    <a class="btn btn-primary text-white"
-                        onclick="viewDocument('/resources/materi/{{$materi->filename}}')">view</a>
-                    <a class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModalCenter" onclick="(()=>{
+    <div class="card bg-light">
+        <div class="card-body">
+            <h1 align="center">List Materi</h1>
+            <div class="row table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark" align="center">
+                        <tr>
+                            <th>Nama File</th>
+                            <th>Tanggal Upload</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    @foreach($list_materi as $materi)
+                    <tr>
+                        <td>{{$materi->filename}}</td>
+                        <td align="center">{{$materi->created_at}}</td>
+                        <td align="center">
+                            <a class="btn btn-success" href="/resources/materi/{{$materi->filename}}">Download</a>
+                            <a class="btn btn-primary text-white"
+                                onclick="viewDocument('/resources/materi/{{$materi->filename}}')">View</a>
+                            @if(\App\Helpers\AgendaRoleChecker::isPIC(request()->agenda_id))
+                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModalCenter"
+                                onclick="(()=>{
                         $('#nama-materi').html('{{$materi->filename}}');
                         $('#form-delete-materi').attr('action','\
                     {{ route('delete.agenda.materi',
@@ -111,13 +120,15 @@ List Materi
                         'no_pertemuan'=> request()->no_pertemuan
                     ] ) }}')
 
-                    })()">delete</a>
-                </td>
-            </tr>
-            @endforeach
-        </table>
-
-        {{--<iframe src = "/ViewerJS/index.html#../resources/materi/2019-05-04-08-05-11-DraftProposalTA_Alfian.pdf" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
+                    })()">Delete</a>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
 @endsection
