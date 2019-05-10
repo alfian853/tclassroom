@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('title')
-    List Materi
+List Materi
 @endsection
 
 @section('add-script')
-    @parent
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
-    <script src="{{asset('js/file_upload.js')}}"></script>
-    <script>
-        function viewDocument(link){
+@parent
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<script src="{{asset('js/file_upload.js')}}"></script>
+<script>
+    function viewDocument(link){
             $('#document-iframe').attr('src','/ViewerJS/index.html#..'+link);
             $('#view-document-modal').modal('show');
         }
@@ -30,68 +30,78 @@
                 $('#' + fileUploadModal.getModalId()).modal('show')
             })
         })
-    </script>
+</script>
 @endsection
 
 @section('content')
-    @csrf
+@csrf
 
-    @if(\App\Helpers\AgendaRoleChecker::isPIC(request()->agenda_id))
-        <div class="container">
-        <a class="btn btn-md btn-success" id="upload-file-trigger">
-            <font color="white"><i class="fa fa-plus-circle"></i>
-                <span class="padding-left:10px">Tambah Materi</span></font>
-        </a>
+@if(\App\Helpers\AgendaRoleChecker::isPIC(request()->agenda_id))
+<div class="container">
+    <a class="btn btn-md btn-success" id="upload-file-trigger">
+        <font color="white"><i class="fa fa-plus-circle"></i>
+            <span class="padding-left:10px">Tambah Materi</span></font>
+    </a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Hapus Materi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Apakah Anda Yakin Ingin Menghapus Materi? </h2>
+                <h3 id="nama-materi"></h3>
+            </div>
+            <form id="form-delete-materi" class="modal-footer" method="post" action="">
+                @csrf
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+            </form>
         </div>
+    </div>
+</div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Hapus Materi</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h2>Apakah Anda Yakin Ingin Menghapus Materi? </h2>
-                        <h3 id="nama-materi"></h3>
-                    </div>
-                    <form id="form-delete-materi" class="modal-footer" method="post" action="">
-                        @csrf
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                    </form>
+@endif
+
+    <div class="modal fade" id="view-document-modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="document-iframe" src="" width='470' height='680' allowfullscreen webkitallowfullscreen></iframe>
                 </div>
             </div>
         </div>
+    </div>
 
-    @endif
-   <center> <div id="view-document-modal" class="modal fade">
-        <div class="modal-body">
-            <iframe id="document-iframe" src = ""
-                    width='800' height='800' allowfullscreen webkitallowfullscreen></iframe>
-        </div>
-    </div></center>
-
-    <div class="container">
-        <div class="row" align="center">
-    <table class="table table-striped">
-        <tr>
-            <th>Nama File</th>
-            <th>Tanggal Upload</th>
-            <th>Action</th>
-        </tr>
-        @foreach($list_materi as $materi)
+<div class="container">
+    <div class="row" align="center">
+        <table class="table table-striped">
+            <tr>
+                <th>Nama File</th>
+                <th>Tanggal Upload</th>
+                <th>Action</th>
+            </tr>
+            @foreach($list_materi as $materi)
             <tr>
                 <td>{{$materi->filename}}</td>
                 <td>{{$materi->created_at}}</td>
                 <td>
                     <a class="btn btn-success" href="/resources/materi/{{$materi->filename}}">download</a>
-                    <a class="btn btn-primary text-white" onclick="viewDocument('/resources/materi/{{$materi->filename}}')">view</a>
-                    <a class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModalCenter"
-                    onclick="(()=>{
+                    <a class="btn btn-primary text-white"
+                        onclick="viewDocument('/resources/materi/{{$materi->filename}}')">view</a>
+                    <a class="btn btn-danger text-white" data-toggle="modal" data-target="#exampleModalCenter" onclick="(()=>{
                         $('#nama-materi').html('{{$materi->filename}}');
                         $('#form-delete-materi').attr('action','\
                     {{ route('delete.agenda.materi',
@@ -101,14 +111,13 @@
                         'no_pertemuan'=> request()->no_pertemuan
                     ] ) }}')
 
-                    })()"
-                    >delete</a>
+                    })()">delete</a>
                 </td>
             </tr>
-        @endforeach
-    </table>
+            @endforeach
+        </table>
 
-    {{--<iframe src = "/ViewerJS/index.html#../resources/materi/2019-05-04-08-05-11-DraftProposalTA_Alfian.pdf" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
-        </div>
+        {{--<iframe src = "/ViewerJS/index.html#../resources/materi/2019-05-04-08-05-11-DraftProposalTA_Alfian.pdf" width='400' height='300' allowfullscreen webkitallowfullscreen></iframe>--}}
     </div>
+</div>
 @endsection
