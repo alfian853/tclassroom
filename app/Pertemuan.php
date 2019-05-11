@@ -12,4 +12,8 @@ class Pertemuan extends Model
     function agenda(){
         return $this->belongsTo('App\Agenda','agenda_id','idAgenda');
     }
+
+    function tugas(){
+        return $this->hasMany('App\Tugas','pertemuan_id','id');
+    }
 }

@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="{{asset('fonts/flaticon/font/flaticon.css')}}">
 @endsection
  
-@section('content') 
+@section('content')
+<a class="btn btn-success" href="{{route('get.agenda.rekap_nilai',['agenda_id' => request()->agenda_id])}}">Download Rekap Nilai</a>
 <p style="padding-top:10px;"></p>
 <div class="container">
     <div class="card bg-light">

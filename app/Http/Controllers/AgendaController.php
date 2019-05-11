@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Agenda;
+use App\Helpers\RekapNilaiExcel;
 use App\Tugas;
 use App\Materi;
 use App\Helpers\AgendaRoleChecker;
@@ -12,6 +13,7 @@ use Auth;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Phalcon\Flash;
 use Session;
 use Storage;
@@ -197,5 +199,13 @@ class AgendaController extends Controller
             Session::flash('alert-type','Failed');
         }
     }
+
+    function exportNilai(Request $request){
+        $helper = new RekapNilaiExcel($request->agenda_id);
+        $agenda = Agenda::where('idAgenda','=',$request->agenda_id)->first();
+        $filename = 'Rekap-Nilai-'.$agenda->singkatAgenda.'.csv';
+        return Excel::download($helper,$filename);
+    }
+
 
 }

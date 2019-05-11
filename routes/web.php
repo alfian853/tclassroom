@@ -1,4 +1,3 @@
-
 <?php
 use Illuminate\Support\Facades\Input;
 /*
@@ -27,9 +26,10 @@ Route::get('/registration/confirmation','Auth\RegisterController@confirmRegistra
 Route::post('/registration','Auth\RegisterController@requestRegister')->name('post.register');
 
 
-Route::get('/list_agenda','AgendaController@getListAgenda')->name('get.agenda.list');
 
 Route::group(['middleware' => ['auth']], function (){
+    Route::get('/list_agenda','AgendaController@getListAgenda')->name('get.agenda.list');
+
     Route::group(['middleware' => ['course_access']],function(){
         Route::get('/agenda/{agenda_id}','AgendaController@getAgendaDetail')
             ->name('get.agenda.detail');
@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function (){
             ->name('delete.agenda.materi');
         Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/detail','AgendaController@getListPengumpulanTugas')
             ->name('get.detail.tugas');
+        Route::get('/agenda/{agenda_id}/rekap_nilai','AgendaController@exportNilai')
+            ->name('get.agenda.rekap_nilai');
     });
 });
 

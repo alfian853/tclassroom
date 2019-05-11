@@ -19,4 +19,8 @@ class Agenda extends Model
         return $this->hasMany('App\Kehadiran','idAgenda','idAgenda');
     }
 
+    function pertemuan(){
+        return $this->hasMany('App\Pertemuan','agenda_id','idAgenda');
+    }
+
 }
