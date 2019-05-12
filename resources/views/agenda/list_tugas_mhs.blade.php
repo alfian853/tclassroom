@@ -49,20 +49,20 @@ List Tugas
                 <th>Judul Tugas</th>
                 <th>Deskripsi Tugas</th>
                 <th>Deadline</th>
-                <th>Sudah Kumpul</th>
+                <th>Status Tugas</th>
                 <th>Action</th>
             </tr>
         </thead>
 
         @foreach($list_tugas as $i => $tugas)
         <tr>
-            <td align="center">{{$tugas->judul}}</td>
-            <td id="deskripsi-{{$i}}">{{$tugas->deskripsi}}</td>
-            <td align="center">{{$tugas->deadline}}</td>
+            <td align="center" style="padding-top:20px;">{{$tugas->judul}}</td>
+            <td style="padding-top:20px;" id="deskripsi-{{$i}}">{{$tugas->deskripsi}}</td>
+            <td align="center" style="padding-top:20px;">{{$tugas->deadline}}</td>
             @if($tugas->pengumpulan(Auth::user()->idUser)->filename != null)
-            <td align="center"><strong> <font color="green"> <i class="fa fa-check"></i> Sudah Mengumpulkan </font></strong></td>
+            <td align="center" style="padding-top:20px;"><strong> <font color="green"> <i class="fa fa-check"></i> Sudah Mengumpulkan </font></strong></td>
             @else
-            <td align="center"><strong> <font color="red"> <i class="fa fa-close"></i> Belum Mengumpulkan</font></strong></td>
+            <td align="center" style="padding-top:20px;"><strong> <font color="red"> <i class="fa fa-close"></i> Belum Mengumpulkan</font></strong></td>
             @endif
             <td align="center">
                 <button class="btn btn-primary" onclick="(() => {

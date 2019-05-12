@@ -67,14 +67,14 @@ Pengumpulan Tugas
 
         @foreach($listPengumpulanTugas as $i => $pTugas)
         <tr>
-            <td align="center">{{$i+1}}</td>
-            <td align="center">{{$pTugas->mahasiswa->idUser}}</td>
-            <td>{{$pTugas->mahasiswa->name}}</td>
-            <td align="center">{{$pTugas->waktu_submit}}</td>
-            <td align="center">{{$pTugas->nilai}}</td>
+            <td align="center" style="padding-top:25px;">{{$i+1}}</td>
+            <td align="center" style="padding-top:25px;">{{$pTugas->mahasiswa->idUser}}</td>
+            <td style="padding-top:25px;">{{$pTugas->mahasiswa->name}}</td>
+            <td align="center" style="padding-top:25px;">{{$pTugas->waktu_submit}}</td>
+            <td align="center" style="padding-top:25px;">{{$pTugas->nilai}}</td>
             <td align="center">
                 @if($pTugas->filename == null)
-                <p style="color: red"><strong><i class="fa fa-close"></i> Belum Mengumpulkan</strong></p>
+                <p style="color: red" ><strong><i class="fa fa-close"></i> Belum Mengumpulkan</strong></p>
                 @else
                 <a href="/resources/tugas/{{$pTugas->filename}}" class="btn btn-success" target="_blank">Download</a>
                 <a class="btn btn-primary text-white"
@@ -105,12 +105,12 @@ Pengumpulan Tugas
                         method="post" class="form-group">
                         @csrf
                         <div class="row">
-                            <div class="col-md-4">
-                                <label for="nilai">Nilai</label>
+                            <div class="col-md-4 mt-2">
+                                <label for="nilai"><strong> Nilai Tugas : </strong></label>
                             </div>
                             <input id="mhs-id-input" type="hidden" name="mhs_id">
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="nilai">
+                                <input type="number" min="0" max="100" class="form-control" placeholder="Masukkan Nilai Tugas" name="nilai">
                             </div>
                         </div>
                         <div class="modal-footer">
