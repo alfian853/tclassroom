@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Pengumpulan Tugas
+Pengumpulan Tugas
 @endsection
 
 @section('add-script')
@@ -29,7 +29,7 @@
             })
         })
 </script>
-    
+
 @endsection
 
 @section('content')
@@ -49,34 +49,75 @@
     </div>
 </div>
 
-    <h1>Pengumpulan Tugas</h1>
-    <h3>Kelas {{$agenda->namaAgenda}}</h3>
-    <h3>Pertemuan {{request()->no_pertemuan}}</h3>
-    <table class="table table-striped">
-        <tr>
-            <th>No</th>
-            <th>NRP Mahasiswa</th>
-            <th>Nama Mahasiswa</th>
-            <th>Waktu Pengumpulan</th>
-            <th>nilai</th>
-            <th>Action</th>
-        </tr>
-        @foreach($listPengumpulanTugas as $i => $pTugas)
-            <tr>
-                <td>{{$i+1}}</td>
-                <td>{{$pTugas->mahasiswa->idUser}}</td>
-                <td>{{$pTugas->mahasiswa->name}}</td>
-                <td>{{$pTugas->waktu_submit}}</td>
-                <td>{{$pTugas->nilai}}</td>
-                <td>
-                    @if($pTugas->filename == null)
-                        <p style="color: red">Belum Mengumpulkan</p>
-                    @else
-                        <a href="/resources/tugas/{{$pTugas->filename}}" class="btn btn-success" target="_blank">Download</a>
-                        <a class="btn btn-primary text-white" onclick="viewDocument('/resources/tugas/{{$pTugas->filename}}')">View</a>
-                    @endif
-                </td>
+<h1 align="center"><strong> PENGUMPULAN TUGAS</strong></h1>
+<h3 align="center"><strong> Kelas {{$agenda->namaAgenda}}</strong></h3>
+<h3 align="center"><strong> Pertemuan {{request()->no_pertemuan}}</strong></h3>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr align="center">
+                <th>No</th>
+                <th>NRP Mahasiswa</th>
+                <th>Nama Mahasiswa</th>
+                <th>Waktu Pengumpulan</th>
+                <th>Nilai</th>
+                <th>Action</th>
             </tr>
+        </thead>
+
+        @foreach($listPengumpulanTugas as $i => $pTugas)
+        <tr>
+            <td align="center">{{$i+1}}</td>
+            <td align="center">{{$pTugas->mahasiswa->idUser}}</td>
+            <td>{{$pTugas->mahasiswa->name}}</td>
+            <td align="center">{{$pTugas->waktu_submit}}</td>
+            <td align="center">{{$pTugas->nilai}}</td>
+            <td align="center">
+                @if($pTugas->filename == null)
+                <p style="color: red"><strong><i class="fa fa-close"></i> Belum Mengumpulkan</strong></p>
+                @else
+                <a href="/resources/tugas/{{$pTugas->filename}}" class="btn btn-success" target="_blank">Download</a>
+                <a class="btn btn-primary text-white"
+                    onclick="viewDocument('/resources/tugas/{{$pTugas->filename}}')">View</a>
+                <button class="btn btn-danger" type="submit" onclick="(() => {
+                      $('#modalnilai').modal('show');
+                    })()">Beri Nilai</button>
+                @endif
+            </td>
+        </tr>
         @endforeach
     </table>
+</div>
+
+
+<div class="modal fade" id="modalnilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Input Nilai Tugas</h5>
+            </div>
+            <div class="modal-body">
+                    <form
+                        action="{{route('post.tugas.nilai',['agenda_id' => request()->agenda_id,'pertemuan' => request()->no_pertemuan, 'tugas_id' => request()->tugas_id])}}"
+                        method="post" class="form-group">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="nilai">Nilai</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="nilai">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>                
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

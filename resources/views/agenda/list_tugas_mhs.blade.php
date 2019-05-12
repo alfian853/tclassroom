@@ -23,7 +23,7 @@ List Tugas
             $('input[name=_token]').val(), 'Upload File'
         )
         fileUploadModal.setOnSuccessHandler(function () {
-            // location.reload(true);
+            location.reload(true);
         })
         fileUploadModal.init();
 

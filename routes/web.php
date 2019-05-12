@@ -50,10 +50,12 @@ Route::group(['middleware' => ['auth']], function (){
             'AgendaController@deleteTugas')->name('post.tugas.delete');
         Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/materi/{materi_id}/delete','AgendaController@deleteMateri')
             ->name('delete.agenda.materi');
-        Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/detail','AgendaController@getListPengumpulanTugas')
+        Route::get('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/{tugas_id}/detail','AgendaController@getListPengumpulanTugas')
             ->name('get.detail.tugas');
         Route::get('/agenda/{agenda_id}/rekap_nilai','AgendaController@exportNilai')
             ->name('get.agenda.rekap_nilai');
+        Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/{tugas_id}/nilai',
+        'AgendaController@submitNilai')->name('post.tugas.nilai');
     });
 });
 

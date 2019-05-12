@@ -97,7 +97,7 @@ List Tugas
                 <td>{{$tugas->deskripsi}}</td>
                 <td align="center">{{$tugas->deadline}}</td>
                 <td align="center">
-                    <a href="{{route('get.detail.tugas',['agenda_id' => request()->agenda_id,'pertemuan_id' => request()->no_pertemuan])}}"
+                    <a href="{{route('get.detail.tugas',['agenda_id' => request()->agenda_id,'pertemuan_id' => request()->no_pertemuan, 'tugas_id' => $tugas->id])}}"
                         class="btn btn-md btn-success">Detail tugas</a>
                     <form method="post" action="{{route('post.tugas.delete',[
                          'agenda_id' => request()->agenda_id,'pertemuan_id' => request()->no_pertemuan, 'tugas_id' => $tugas->id
