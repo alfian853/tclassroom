@@ -81,6 +81,7 @@ Pengumpulan Tugas
                     onclick="viewDocument('/resources/tugas/{{$pTugas->filename}}')">View</a>
                 <button class="btn btn-danger" type="submit" onclick="(() => {
                       $('#modalnilai').modal('show');
+                      $('#mhs-id-input').val('{{$pTugas->mahasiswa->idUser}}');
                     })()">Beri Nilai</button>
                 @endif
             </td>
@@ -99,13 +100,15 @@ Pengumpulan Tugas
             </div>
             <div class="modal-body">
                     <form
-                        action="{{route('post.tugas.nilai',['agenda_id' => request()->agenda_id,'pertemuan' => request()->no_pertemuan, 'tugas_id' => request()->tugas_id])}}"
+                        action="{{route('post.tugas.nilai',['agenda_id' => request()->agenda_id
+                        ,'pertemuan' => request()->no_pertemuan, 'tugas_id' => request()->tugas_id])}}"
                         method="post" class="form-group">
                         @csrf
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="nilai">Nilai</label>
                             </div>
+                            <input id="mhs-id-input" type="hidden" name="mhs_id">
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="nilai">
                             </div>

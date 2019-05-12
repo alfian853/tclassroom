@@ -208,41 +208,12 @@ class AgendaController extends Controller
     }
 
     function submitNilai(Request $request) {
-
-        // $list = PengumpulanTugas::where('mhs_id','=',$request->mhs_id)
-                // ->where('tugas_id','=',$request->tugas_id)->first();
-        //     ->where('filename','=',$request->filename)->first(); 
-
-        // if($list != null){
-        //     $tugas = Tugas::where('id','=',$request->tugas_id)->first();
-
-        //     $pTugas = PengumpulanTugas::where('tugas_id','=',$request->tugas_id)
-        //     ->where('mhs_id','=',$request->mhs_id)
-        //     ->update([
-        //         'nilai' => $request->nilai
-        //     ]);
-        //     Session::flash('alert','Nilai berhasil dimasukkan');
-        //     Session::flash('alert-type','success');
-        // }
-        // else {
-        //     Session::flash('alert','Gagal memasukkan nilai');
-        //     Session::flash('alert-type','Failed');
-        // }
-        // return back();
-
-        // $sNilai = new PengumpulanTugas();
-        // $sNilai->tugas_id = $request->tugas_id;
-        // $sNilai->mhs_id = $request->mhs_id;
-        // $sNilai->nilai = $request->nilai;
-        // $sNilai->save();
-            // $data = PengumpulanTugas::All();
-            // $data = DB::select(DB::raw('select mhs_id, tugas_id from pengumpulan_tugas p join users u where p.mhs_id = u.idUser'));
-
-            $model = PengumpulanTugas::get();
-           $model->nilai = $request->nilai;
-        //    $model->save();
-        //    return back();
-        echo $model;
+        PengumpulanTugas::where('tugas_id','=',$request->tugas_id)
+        ->where('mhs_id','=',$request->mhs_id)
+        ->update([
+         'nilai' => $request->nilai
+        ]);
+        return back();
     }
 
 }
