@@ -216,4 +216,14 @@ class AgendaController extends Controller
         return back();
     }
 
+    function submitPesan(Request $request) {
+        $tugas = Tugas::where('id','=',$request->tugas_id)->first();
+        $pTugas = PengumpulanTugas::where('tugas_id','=',$request->tugas_id)
+        ->where('mhs_id','=',Auth::user()->idUser)
+        ->update([
+            'pesan' => $request->pesan
+        ]);
+        return back();
+    }
+
 }
