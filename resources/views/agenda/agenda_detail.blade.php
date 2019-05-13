@@ -12,8 +12,10 @@
 <p></p>
 <p style="padding-top:10px;"></p>
 <div class="container">
+    @if(\App\Helpers\AgendaRoleChecker::isPIC(request()->agenda_id))
     <a class="btn btn-success" href="{{route('get.agenda.rekap_nilai',['agenda_id' => request()->agenda_id])}}">Download
         Rekap Nilai</a>
+    @endif
     <div class="card bg-light">
         <div class="card-body">
             <h2 align="center"><strong>LIST PERTEMUAN</strong></h2>
