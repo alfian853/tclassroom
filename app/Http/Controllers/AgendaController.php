@@ -146,11 +146,12 @@ class AgendaController extends Controller
         if(AgendaRoleChecker::isPIC($request->agenda_id)){
             $pertemuan = Pertemuan::where('agenda_id','=',$request->agenda_id)
             ->where('no_pertemuan','=',$request->no_pertemuan)->first();
+
             if($pertemuan == null){
                 abort(404);
             }
 
-            $listPengumpulanTugas = Tugas::where('pertemuan_id','=',$pertemuan->id)->first()->pengumpulan;
+            $listPengumpulanTugas = Tugas::where('id','=',$request->tugas_id)->first()->pengumpulan;
             return view('agenda.pengumpulan_tugas_pic')->with([
                 'listPengumpulanTugas' => $listPengumpulanTugas,
                 'agenda' => $pertemuan->agenda
@@ -158,13 +159,7 @@ class AgendaController extends Controller
 
         }
         else{
-            $pertemuan = Pertemuan::where('agenda_id','=',$request->agenda_id);
-
-            if($pertemuan == null){
-                abort(404);
-            }
-            $pengumpulanTugas = PengumpulanTugas::with('pertemuan_id','=',$pertemuan->id)
-            ->where('mhs_id','=',Auth::user()->idUser)->first();
+            abort(401);
         }
     }
 
@@ -172,7 +167,7 @@ class AgendaController extends Controller
         if($request->file('file') != null){
             $tugas = Tugas::where('id','=',$request->tugas_id)->first();
 
-            $deadLine = $tugas->first()->deadline;
+            $deadLine = $tugas->deadline;
             $now = Carbon::now();
             if($now > $deadLine){
                 Session::flash('alert','Batas waktu pengumpulan tugas telah berakhir!');
