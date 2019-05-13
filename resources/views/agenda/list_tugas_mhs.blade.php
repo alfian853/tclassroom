@@ -60,28 +60,41 @@ List Tugas
             <td style="padding-top:20px;" id="deskripsi-{{$i}}">{{$tugas->deskripsi}}</td>
             <td align="center" style="padding-top:20px;">{{$tugas->deadline}}</td>
             @if($tugas->pengumpulan(Auth::user()->idUser)->filename != null)
-            <td align="center" style="padding-top:20px;"><strong> <font color="green"> <i class="fa fa-check"></i> Sudah Mengumpulkan </font></strong></td>
+            <td align="center" style="padding-top:20px;"><strong>
+                    <font color="green"> <i class="fa fa-check"></i> Sudah Mengumpulkan </font>
+                </strong></td>
             @else
-            <td align="center" style="padding-top:20px;"><strong> <font color="red"> <i class="fa fa-close"></i> Belum Mengumpulkan</font></strong></td>
+            <td align="center" style="padding-top:20px;"><strong>
+                    <font color="red"> <i class="fa fa-close"></i> Belum Mengumpulkan</font>
+                </strong></td>
             @endif
+
+            @if (date('Y-m-d H:i') > $tugas->deadline)
+            <td align="center" style="padding-top:20px;"><strong>
+                    <font color="red"> <i class="fa fa-close"></i> Batas waktu pengumpulan tugas telah berakhir!</font>
+                </strong>
+            </td>
+            @else
             <td align="center">
                 <button class="btn btn-primary" onclick="(() => {
-                $('#deskripsi-tugas').html( $('#deskripsi-{{$i}}').html());
-                $('#deskripsiModal').modal('show');
-            })()">Detail tugas</button>
+                                $('#deskripsi-tugas').html( $('#deskripsi-{{$i}}').html());
+                                $('#deskripsiModal').modal('show');
+                            })()">Detail tugas</button>
                 <button class="btn btn-success" type="submit" onclick="(() => {
                         fileUploadModal.setUploadUrl('{{route('post.tugas.submit',[
-                            'agenda_id' => request()->agenda_id,
-                            'no_pertemuan' => request()->no_pertemuan,
-                            'tugas_id' => $tugas->id
-                       ]
-                       )}}');
-                       $('#' + fileUploadModal.getModalId()).modal('show');
-                })()">Kumpul tugas</button>
+                        'agenda_id' => request()->agenda_id,
+                        'no_pertemuan' => request()->no_pertemuan,
+                        'tugas_id' => $tugas->id
+                        ]
+                    )}}');
+                    $('#' + fileUploadModal.getModalId()).modal('show');
+                    })()">Kumpul tugas</button>
                 <button class="btn btn-warning text-white" type="submit" onclick="(() => {
                     $('#modalpesan').modal('show');
-                })()">Tulis Pesan</button>
+                    })()">Tulis Pesan</button>
             </td>
+            @endif
+
         </tr>
         @endforeach
 
@@ -126,8 +139,7 @@ List Tugas
                             <label for="nilai"><strong> Pesan : </strong></label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control"
-                                placeholder="Tulis Pesan" name="pesan">
+                            <input type="text" class="form-control" placeholder="Tulis Pesan" name="pesan">
                         </div>
                     </div>
                     <div class="modal-footer">
