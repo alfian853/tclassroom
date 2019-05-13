@@ -41,7 +41,7 @@ class RekapNilaiExcel implements FromCollection, WithHeadings
             ->join('tugas as tg','tg.pertemuan_id','=','pt.id')
             ->join('pengumpulan_tugas as ptg','ptg.tugas_id','=','tg.id')
             ->join('users as us','us.idUser','=','ptg.mhs_id')
-            ->where('agenda.idAgenda','=','IF184605I_19')
+            ->where('agenda.idAgenda','=',$agendaId)
             ->groupBy('us.name')->limit(1)->first()->daftar_tugas
         );
         $this->header = array_merge(['nrp','nama'],$this->header);
