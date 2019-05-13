@@ -78,6 +78,9 @@ List Tugas
                        )}}');
                        $('#' + fileUploadModal.getModalId()).modal('show');
                 })()">Kumpul tugas</button>
+                <button class="btn btn-warning text-white" type="submit" onclick="(() => {
+                    $('#modalpesan').modal('show');
+                })()">Tulis Pesan</button>
             </td>
         </tr>
         @endforeach
@@ -101,6 +104,37 @@ List Tugas
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalpesan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Tulis Pesan Untuk Dosen</h5>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('post.tugas.pesan',['agenda_id' => request()->agenda_id
+                        ,'pertemuan' => request()->no_pertemuan, 'tugas_id' => $tugas->id])}}" method="post"
+                    class="form-group">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-4 mt-2">
+                            <label for="nilai"><strong> Pesan : </strong></label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control"
+                                placeholder="Tulis Pesan" name="pesan">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

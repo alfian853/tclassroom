@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function (){
             ->name('get.agenda.tugas');
         Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/{tugas_id}/submit',
             'AgendaController@submitTugas')->name('post.tugas.submit');
+        Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/tugas/{tugas_id}/pesan',
+        'AgendaController@submitPesan')->name('post.tugas.pesan');
     });
 
     Route::group(['middleware' => ['course_admin']],function(){

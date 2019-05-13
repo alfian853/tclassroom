@@ -61,6 +61,7 @@ Pengumpulan Tugas
                 <th>Nama Mahasiswa</th>
                 <th>Waktu Pengumpulan</th>
                 <th>Nilai</th>
+                <th>Pesan Mahasiswa</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -72,6 +73,7 @@ Pengumpulan Tugas
             <td style="padding-top:25px;">{{$pTugas->mahasiswa->name}}</td>
             <td align="center" style="padding-top:25px;">{{$pTugas->waktu_submit}}</td>
             <td align="center" style="padding-top:25px;">{{$pTugas->nilai}}</td>
+            <td align="center" style="padding-top:25px;">{{$pTugas->pesan}}</td>
             <td align="center">
                 @if($pTugas->filename == null)
                 <p style="color: red" ><strong><i class="fa fa-close"></i> Belum Mengumpulkan</strong></p>
