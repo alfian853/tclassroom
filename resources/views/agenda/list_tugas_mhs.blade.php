@@ -90,6 +90,9 @@ List Tugas
                     $('#' + fileUploadModal.getModalId()).modal('show');
                     })()">Kumpul tugas</button>
                 <button class="btn btn-warning text-white" type="submit" onclick="(() => {
+                    $('#modalpesan form').attr('action',
+                    {{route('post.tugas.pesan',['agenda_id' => request()->agenda_id
+                        ,'pertemuan' => request()->no_pertemuan, 'tugas_id' => $tugas->id])}});
                     $('#modalpesan').modal('show');
                     })()">Tulis Pesan</button>
             </td>
@@ -130,8 +133,7 @@ List Tugas
                 <h5 class="modal-title" id="exampleModalLabel"> Tulis Pesan Untuk Dosen</h5>
             </div>
             <div class="modal-body">
-                <form action="{{route('post.tugas.pesan',['agenda_id' => request()->agenda_id
-                        ,'pertemuan' => request()->no_pertemuan, 'tugas_id' => $tugas->id])}}" method="post"
+                <form action="" method="post"
                     class="form-group">
                     @csrf
                     <div class="row">
