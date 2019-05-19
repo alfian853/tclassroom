@@ -10,7 +10,8 @@ List Materi
 <script src="{{asset('js/file_upload.js')}}"></script>
 <script>
     function viewDocument(link){
-            $('#document-iframe').attr('src','/ViewerJS/index.html#..'+link);
+            // $('#document-iframe').attr('src','/ViewerJS/index.html#..'+link);
+            $('#google-iframe').attr('src','https://docs.google.com/viewer?url=http://etc.if.its.ac.id'+link+'&embedded=true');
             $('#view-document-modal').modal('show');
         }
 
@@ -80,8 +81,10 @@ List Materi
                 </button>
             </div>
             <div class="modal-body">
-                <iframe id="document-iframe" src="" width='470' height='680' allowfullscreen
-                    webkitallowfullscreen></iframe>
+                {{--<iframe id="document-iframe" src="" width='470' height='680' allowfullscreen--}}
+                    {{--webkitallowfullscreen></iframe>--}}
+                <iframe id="google-iframe"
+                        src="" style="width:600px; height:680px;" frameborder="0"></iframe>
             </div>
         </div>
     </div>
