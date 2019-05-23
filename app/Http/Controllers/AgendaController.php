@@ -87,10 +87,17 @@ class AgendaController extends Controller
             Session::flash('alert-type', 'failed');
             return back();
         }
-        Storage::delete('resources/materi/'.$materi->filename);
         $materi->delete();
-        Session::flash('alert','file '.$materi->filename.' telah dihapus');
-        Session::flash('alert-type','success');
+        $cariLagi = Materi::where('filename','=',$materi->filename)->first();
+        if($cariLagi == null){
+            Storage::delete('resources/materi/'.$materi->filename);
+            Session::flash('alert','file '.$materi->filename.' telah dihapus');
+            Session::flash('alert-type','success');
+        }
+        else{
+            Session::flash('alert','materi telah dihapus');
+            Session::flash('alert-type','success');
+        }
         return back();
     }
 
@@ -217,6 +224,27 @@ class AgendaController extends Controller
         ->where('mhs_id','=',Auth::user()->idUser)
         ->update([
             'pesan' => $request->pesan
+        ]);
+        return back();
+    }
+
+    function searchMateri(Request $request){
+        $materi = DB::table('materi')->select('filename')->distinct()
+            ->where('filename','like','%'.$request->search.'%')
+            ->paginate($request->length,['*'],'',$request->page);
+        return response()->json([
+            'recordsFiltered' => $materi->total(),
+            'results' => $materi->items()
+        ]);
+    }
+
+    function tambahMateri(Request $request){
+        $pertemuan = Pertemuan::where('agenda_id',$request->agenda_id)->
+            where('no_pertemuan',$request->no_pertemuan)->first();
+        $materi = Materi::where('filename','=',$request->filename)->first();
+        Materi::create([
+            'pertemuan_id' => $pertemuan->id,
+            'filename' => $materi->filename
         ]);
         return back();
     }

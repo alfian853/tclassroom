@@ -26,9 +26,13 @@ Route::get('/registration/confirmation','Auth\RegisterController@confirmRegistra
 Route::post('/registration','Auth\RegisterController@requestRegister')->name('post.register');
 
 
+Route::post('/agenda/{agenda_id}/pertemuan/{no_pertemuan}/materi/tambah','AgendaController@tambahMateri')
+    ->name('post.agenda.tambah_materi');
 
 Route::group(['middleware' => ['auth']], function (){
     Route::get('/list_agenda','AgendaController@getListAgenda')->name('get.agenda.list');
+    Route::get('/materi/search','AgendaController@searchMateri')
+        ->name('get.agenda.list_materi');
 
     Route::group(['middleware' => ['course_access']],function(){
         Route::get('/agenda/{agenda_id}','AgendaController@getAgendaDetail')

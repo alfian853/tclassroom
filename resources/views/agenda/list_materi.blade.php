@@ -7,6 +7,8 @@ List Materi
 @parent
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="{{asset('js/file_upload.js')}}"></script>
 <script>
     function viewDocument(link){
@@ -16,8 +18,13 @@ List Materi
         }
 
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers:
+                    { 'X-CSRF-TOKEN': '{{csrf_token()}}' }
+            });
             let fileUploadModal = new FileUploadModal(
-                '{{route('post.agenda.materi',['agenda_id' => request()->agenda_id,'no_pertemuan' => request()->no_pertemuan])}}',
+                '{{route('post.agenda.materi',['agenda_id' => request()->agenda_id,
+                'no_pertemuan' => request()->no_pertemuan])}}',
                 $('input[name=_token]').val(), 'Upload File'
             )
 
@@ -27,9 +34,42 @@ List Materi
             fileUploadModal.init();
 
             $('#upload-file-trigger').click(function () {
-                console.log($('#post-editor').val());
                 $('#' + fileUploadModal.getModalId()).modal('show')
             })
+
+            $('#materi-select').select2({
+                placeholder : 'Please select warehouse...',
+                ajax : {
+                    url : '{{route('get.agenda.list_materi')}}',
+                    params : null,
+                    delay : 350,
+                    headers : { 'X-CSRF-TOKEN': '{{csrf_token()}}' } ,
+                    data : function (params) {
+                        let query = {
+                            search : (params.term != null)?params.term:"",
+                            page : (params.page)?params.page:0,
+                            length : 10
+                        };
+                        this.params = query;
+                        return query;
+                    },
+                    processResults : function (result) {
+                        let params = this['$element'].params;
+                        result.pagination = {
+                            more : params.length*params.page < result['recordsFiltered']
+                        };
+                        let tmp = result.results;
+                        let len = tmp.length;
+                        for(let i=0; i<len; i++){
+                            tmp[i].text = tmp[i].filename;
+                            tmp[i].id = tmp[i].text;
+                        }
+                        console.log(result);
+                        return result;
+                    }
+
+                }
+            });
         })
 </script>
 @endsection
@@ -42,12 +82,21 @@ List Materi
 <div class="container">
     <a class="btn btn-md btn-success" id="upload-file-trigger">
         <font color="white"><i class="fa fa-plus-circle"></i>
+            <span class="padding-left:10px">Upload Materi Baru</span></font>
+    </a>
+</div>
+<div class="container">
+    <a class="btn btn-md btn-success" onclick="(()=>{
+        $('#tambah-materi-modal').modal('show');
+
+    })()">
+        <font color="white"><i class="fa fa-plus-circle"></i>
             <span class="padding-left:10px">Tambah Materi</span></font>
     </a>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -69,6 +118,35 @@ List Materi
         </div>
     </div>
 </div>
+
+<div class="modal fade" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true" id="tambah-materi-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form id="form-tambah-materi" class="modal-footer" method="post"
+              action="{{route('post.agenda.tambah_materi',['agenda_id' => request()->agenda_id,
+                'no_pertemuan' => request()->no_pertemuan])}}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Tambah Materi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Pilih Materi</label>
+                    <select id="materi-select" style="width: 300px;" name="filename">
+                    </select>
+                </div>
+                    @csrf
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                    <button type="submit" class="btn btn-success">Tambahkan Materi</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 
 @endif
 
